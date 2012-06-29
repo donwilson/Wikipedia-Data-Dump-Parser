@@ -3,21 +3,22 @@
 	ini_set('memory_limit', "64M");
 	
 	mysql_connect("localhost", "", "");
-	mysql_select_db("dump_wikipedia");
-	
-	
-	$start_from = 0;
+	mysql_select_db("");
 	
 	$path = dirname(__FILE__) . DIRECTORY_SEPARATOR;
 	
 	$files = glob("./data/enwiki-*-pages-articles.xml-p*");
 	
-	function convert_to_human($size) {
-		$unit=array('b','kb','mb','gb','tb','pb');
-		return @round($size/pow(1024,($i=floor(log($size,1024)))),2).' '.$unit[$i];
+	if(empty($files)) {
+		print "Nothing to do...". PHP_EOL;
+		
+		die;
 	}
 	
+	// Create the temporary table, we'll delete it later...
+	$tmp_table_contents = file_get_contents($path ."init.sql");
 	
+	mysql_query($tmp_table_contents);
 	
 	foreach($files as $file) {
 		
