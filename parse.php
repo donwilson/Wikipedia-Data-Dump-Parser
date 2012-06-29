@@ -19,6 +19,15 @@
 	$tmp_table_contents = file_get_contents($path ."init.sql");
 	
 	mysql_query($tmp_table_contents);
+
+	// performance enhancements (not yet approved):
+	
+	// UNIQUE_CHECKS=0 
+	// FOREIGN_KEY_CHECKS=0 
+	// DISABLE KEYS 
+	// LOCK TABLES ... WRITE;	
+	
+	
 	
 	foreach($files as $file) {
 		
