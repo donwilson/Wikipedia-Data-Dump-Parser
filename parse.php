@@ -32,6 +32,9 @@
 		
 		$db_table = "pages_articles_". $match['1'] ."-". $match['2'];
 		
+		
+		mysql_query("CREATE TABLE `". mysql_real_escape_string($db_table) ."` LIKE `tmp_pages_articles_tmp`");
+		
 		$xml = new XMLReader();
 		$xml->open($path . $file);
 		
@@ -67,5 +70,7 @@
 		
 		unset($xml);
 	}
+	
+	mysql_query("DROP TABLE `tmp_pages_articles_tmp`");
 	
 	print "All done". PHP_EOL;
